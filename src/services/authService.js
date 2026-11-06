@@ -23,7 +23,6 @@ async function register(data) {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Resolve role (default to "user" role if not specified)
     let roleId = data.role || data.roleId;
 
     if (!roleId) {
@@ -66,7 +65,7 @@ async function login(data) {
 
     const normalizedEmail = email.trim().toLowerCase();
 
-    // Find user (include password since select: false on schema)
+    // Find user 
     const user = await User.findOne({
         email: normalizedEmail
     }).select("+password");
